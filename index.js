@@ -130,7 +130,7 @@ for (let i=0; i < shuffledChild.length ; i++){
 
     childDiv.dataset.name = shuffledChild[i].name ;
 
-    // childDiv.style.backgroundImage = `url(${shuffledChild[i].img})`;
+     
     const front_div = document.createElement('div');
     front_div.classList.add('front-card')
 
@@ -138,7 +138,7 @@ for (let i=0; i < shuffledChild.length ; i++){
     back_div.classList.add('back-card')
 
 
-
+    back_div.style.backgroundImage = `url(${shuffledChild[i].img})`;
     parentDiv.append(childDiv)
     childDiv.appendChild(front_div)
     childDiv.appendChild(back_div)
