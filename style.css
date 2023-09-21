@@ -49,3 +49,7 @@
 .card_selected{
     border : .2rem Solid var(--border-color);
 }
+
+.card_match{
+    border : .2rem solid  purple ;
+}

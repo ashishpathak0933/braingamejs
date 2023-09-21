@@ -48,24 +48,78 @@ const parentDiv = document.querySelector('#card-section')
   
    
    // let shuffledChild = Array.from(gameCard).sort(() => 0.5 - Math.random());
-  // counter var 
-  let clickCount = 0 ;
+
+
+   let clickCount = 0 ;
+   let firstCard = "";
+   let secondCard = "" ; 
+
+
+ // styling the match card
+ const card_matches = () => {
+    let card_selected = document.querySelectorAll('.card_selected');
+
+    card_selected.forEach((curElem) => {
+        curElem.classList.add('card_match')
+    })
+}
+
+
+// step 7
+
+const resetGame = () => {
+    firstCard = "";
+    secondCard = "";
+    clickCount = 0;
+
+    let card_selected = document.querySelectorAll('.card_selected');
+
+    card_selected.forEach((curElem) => {
+        curElem.classList.remove('card_selected')
+    })
+
+}
 
 
 
    ///
    parentDiv.addEventListener('click', (event)=>{
     let curCard = event.target ;
-    clickCount ++
+
+    if (curCard.id === "card-section") { return false  }
+
+    clickCount++ ;
+
     if(clickCount < 3 ) {
+        if (clickCount ===1){
+            firstCard = curCard.dataset.name;
+            curCard.classList.add('card_selected')
+
+        } else {
+            secondCard = curCard.dataset.name ; 
+            curCard.classList.add('card_selected')
+        }
+
+        if(firstCard !== "" && secondCard !== ""){
+             if(firstCard === secondCard) {
+                setTimeout(() => {
+                    card_matches()
+                    resetGame()
+                }, 1000)
+
+            }else{
+                setTimeout(() => {
+                    resetGame()
+                }, 1000)
+            }
+        }
         
-        curCard.classList.add('card_selected')
     }
-     if (curCard.id === "card-section") {
-        return false 
-     }
+    
      
    })
+
+
 
 
 for (let i=0; i < shuffledChild.length ; i++){
@@ -76,9 +130,19 @@ for (let i=0; i < shuffledChild.length ; i++){
 
     childDiv.dataset.name = shuffledChild[i].name ;
 
-    childDiv.style.backgroundImage = `url(${shuffledChild[i].img})`;
+    // childDiv.style.backgroundImage = `url(${shuffledChild[i].img})`;
+    const front_div = document.createElement('div');
+    front_div.classList.add('front-card')
+
+    const back_div = document.createElement('div');
+    back_div.classList.add('back-card')
+
+
 
     parentDiv.append(childDiv)
+    childDiv.appendChild(front_div)
+    childDiv.appendChild(back_div)
+
     
      
 }
